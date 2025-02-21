@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: multi-page-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    # Rewrite every matching path to "/" so that each container serves its index.html.
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /foo(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nginx-foo
+                port:
+                  number: 80
+          - path: /bar(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nginx-bar
+                port:
+                  number: 80
+          - path: /baz(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nginx-baz
+                port:
+                  number: 80

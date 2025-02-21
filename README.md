@@ -1,3 +1,6 @@
 # kubernetes_example
-# kubernetes_example
-# kubernetes_example
+
+## Prerequesite:
+
+- Minikube
+- helm
